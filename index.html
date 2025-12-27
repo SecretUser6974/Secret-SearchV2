@@ -159,11 +159,20 @@ button{cursor:pointer}
   color:#fff;
 }
 
-/* 관계 상태별 색상 */
-.node.green{background:#2ecc71;} /* 내가 좋아함 */
-.node.orange{background:#f39c12;}/* 나를 좋아함 */
-.node.red{background:#e74c3c;}   /* 경쟁 */
-.node.gray{background:#777;color:#111;} /* 관계없음 */
+/* 관계별 색상 */
+.node.green{ background:#2ecc71; }  /* 내가 좋아함 */
+.node.orange{ background:#f39c12; } /* 나를 좋아함 */
+.node.red{ background:#e74c3c; }    /* 경쟁 */
+.node.gray{
+  background:#777;                  /* 관계 없음 (다크 모드) */
+  color:#111;
+}
+
+/* ⭐ 라이트 모드에서 관계 없음 */
+body.light .node.gray{
+  background:#dcdcdc;
+  color:#333;
+}
 
 /* ===============================
    📘 범례
@@ -284,13 +293,13 @@ button{cursor:pointer}
 <div id="updateModal">
   <div class="modal">
     <div class="modal-header">
-      <h3>업데이트 v5.2.1</h3>
+      <h3>업데이트 v5.3.1</h3>
       <span id="closeUpdate" style="cursor:pointer">✖</span>
     </div>
     <p>
       • 레이아웃 실사용 최적화<br>
       • 라이트모드 색상 오류 수정<br>
-      • 가독성 대폭 개선
+      • 각종 버그 개선
     </p>
   </div>
 </div>
@@ -515,3 +524,4 @@ closeUpdate.onclick=()=>{
 
 </body>
 </html>
+

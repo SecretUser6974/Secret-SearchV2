@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 
 <!-- 브라우저 탭 제목 -->
-<title>🤫 Secret Search v5.3.1 🤫</title>
+<title>🤫 Secret Search v5.4.1 🤫</title>
 
 <style>
 /* ===============================
@@ -221,6 +221,18 @@ body.light .node.gray{
 
 <body>
 
+<!-- ===============================
+     😱 공포감 모달
+     =============================== -->
+<div id="scaryModal" style="
+    position:fixed; inset:0; background:#111; color:#fff;
+    display:flex; justify-content:center; align-items:center; font-size:1.5rem;
+    z-index:9999; flex-direction:column;
+">
+  <p id="scaryText">IP 수집 중</p>
+  <p>기기 정보 확인 중...</p>
+</div>
+
 <!-- 상단 경고 -->
 <div class="notice-bar">
 ⚠ 비공개 정보 포함 · 외부 공유 절대 금지
@@ -265,6 +277,12 @@ body.light .node.gray{
       ❤️ 연애 💔 과거 ➡️ 짝사랑 🔁 서로<br>
       🟢 내가 좋아함 🟠 나를 좋아함 🔴 경쟁 ⚪ 관계없음
     </div>
+
+    <!-- 각종 문의 안내 -->
+    <p style="margin-top:10px; font-size:0.9rem; opacity:0.7;">
+    💌 각종 문의는 Discord DM으로: <a href="https://discord.com/users/wachi0_0" target="_blank">wachi0_0</a>
+    </p>
+
   </div>
 
   <!-- ===============================
@@ -293,13 +311,13 @@ body.light .node.gray{
 <div id="updateModal">
   <div class="modal">
     <div class="modal-header">
-      <h3>업데이트 v5.3.1</h3>
+      <h3>업데이트 v5.4.1</h3>
       <span id="closeUpdate" style="cursor:pointer">✖</span>
     </div>
     <p>
-      • 레이아웃 실사용 최적화<br>
-      • 라이트모드 색상 오류 수정<br>
-      • 각종 버그 개선
+      • 보안 강화<br>
+      • 각종 버그 개선<br>
+      • 편의성 기능 추가가
     </p>
   </div>
 </div>
@@ -315,6 +333,23 @@ toggleMode.onclick=()=>{
     ? "다크 모드"
     : "라이트 모드";
 };
+
+/* ===============================
+   😱 공포감 모달 연출
+   =============================== */
+const scaryModal = document.getElementById("scaryModal");
+const scaryText = document.getElementById("scaryText");
+
+let dots = 0;
+const interval = setInterval(()=>{
+  scaryText.textContent = "IP 수집 중" + ".".repeat(dots%4);
+  dots++;
+},500);
+
+setTimeout(()=>{
+  clearInterval(interval);
+  scaryModal.style.display = "none";
+},3000);
 
 /* ===============================
    📦 관계 데이터
@@ -516,13 +551,10 @@ rank.innerHTML=Object.entries(score)
   .map(e=>`<li>${e[0]} (${e[1]})</li>`)
   .join("");
 
+
 /* 업데이트 모달 닫기 */
-closeUpdate.onclick=()=>{
-  updateModal.classList.add("hidden");
-};
+closeUpdate.onclick=()=>{updateModal.classList.add("hidden");};
 </script>
 
 </body>
 </html>
-
-

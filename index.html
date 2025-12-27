@@ -2,16 +2,23 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+
+<!-- 브라우저 탭 제목 -->
 <title>🤫 Secret Search v5.2.1 🤫</title>
 
 <style>
+/* ===============================
+   🌙 다크/라이트 테마 변수
+   =============================== */
 :root{
-  --bg:#0d0d0d;
-  --bg-card:#1e1e1e;
-  --bg-soft:#2a2a2a;
-  --text:#f5f5f5;
-  --border:#333;
+  --bg:#0d0d0d;        /* 전체 배경 */
+  --bg-card:#1e1e1e;  /* 카드 배경 */
+  --bg-soft:#2a2a2a;  /* 입력창, 리스트 배경 */
+  --text:#f5f5f5;     /* 기본 글자색 */
+  --border:#333;      /* 테두리 색 */
 }
+
+/* 라이트 모드일 때 변수 값 변경 */
 body.light{
   --bg:#f4f4f4;
   --bg-card:#ffffff;
@@ -20,10 +27,13 @@ body.light{
   --border:#ccc;
 }
 
+/* 기본 설정 */
 html,body{
   margin:0;
   font-family:system-ui,-apple-system,BlinkMacSystemFont;
 }
+
+/* 전체 배경 */
 body{
   min-height:100vh;
   background:linear-gradient(180deg,var(--bg),#111);
@@ -31,7 +41,9 @@ body{
   transition:.3s;
 }
 
-/* 상단 경고 */
+/* ===============================
+   🚨 상단 경고 바
+   =============================== */
 .notice-bar{
   background:#b00020;
   color:#fff;
@@ -40,7 +52,9 @@ body{
   font-size:.85rem;
 }
 
-/* 헤더 */
+/* ===============================
+   🧠 헤더
+   =============================== */
 header{
   text-align:center;
   padding:25px 10px;
@@ -48,7 +62,10 @@ header{
 h1{margin:0;font-size:2.2rem;}
 button{cursor:pointer}
 
-/* 레이아웃 */
+/* ===============================
+   📐 전체 레이아웃
+   메인 2.5 : 사이드 1
+   =============================== */
 .container{
   max-width:1200px;
   margin:auto;
@@ -58,7 +75,9 @@ button{cursor:pointer}
   gap:20px;
 }
 
-/* 카드 */
+/* ===============================
+   📦 카드 공통 스타일
+   =============================== */
 .card{
   background:var(--bg-card);
   border-radius:16px;
@@ -66,7 +85,9 @@ button{cursor:pointer}
   box-shadow:0 10px 25px rgba(0,0,0,.4);
 }
 
-/* 검색 */
+/* ===============================
+   🔍 검색 영역
+   =============================== */
 .search-box{display:flex;gap:10px;}
 .search-box input{
   flex:1;
@@ -85,7 +106,9 @@ button{cursor:pointer}
   color:#fff;
 }
 
-/* 자동완성 */
+/* ===============================
+   ✨ 자동완성 목록
+   =============================== */
 #suggestions{
   margin-top:6px;
   background:var(--bg-soft);
@@ -95,9 +118,13 @@ button{cursor:pointer}
   padding:6px 10px;
   cursor:pointer;
 }
-#suggestions div:hover{background:rgba(255,255,255,.08);}
+#suggestions div:hover{
+  background:rgba(255,255,255,.08);
+}
 
-/* 최근 검색 */
+/* ===============================
+   🕒 최근 검색
+   =============================== */
 #recentWrapper{
   margin-top:10px;
   padding:10px;
@@ -111,27 +138,45 @@ button{cursor:pointer}
   border-radius:6px;
   cursor:pointer;
 }
-#recentList li:hover{background:rgba(255,255,255,.08);}
+#recentList li:hover{
+  background:rgba(255,255,255,.08);
+}
 
-/* 결과 */
-#noResult{display:none;color:#ff6b6b;margin:10px 0}
+/* 검색 결과 없음 메시지 */
+#noResult{
+  display:none;
+  color:#ff6b6b;
+  margin:10px 0;
+}
 
-/* 그래프 */
+/* ===============================
+   🧩 관계 그래프 노드
+   =============================== */
 .node{
   padding:10px 14px;
   border-radius:20px;
   font-size:.95rem;
   color:#fff;
 }
-.node.green{background:#2ecc71;}
-.node.orange{background:#f39c12;}
-.node.red{background:#e74c3c;}
-.node.gray{background:#777;color:#111;}
 
-/* 범례 */
-#legend{margin-top:10px;font-size:.85rem;opacity:.85}
+/* 관계 상태별 색상 */
+.node.green{background:#2ecc71;} /* 내가 좋아함 */
+.node.orange{background:#f39c12;}/* 나를 좋아함 */
+.node.red{background:#e74c3c;}   /* 경쟁 */
+.node.gray{background:#777;color:#111;} /* 관계없음 */
 
-/* 업데이트 모달 */
+/* ===============================
+   📘 범례
+   =============================== */
+#legend{
+  margin-top:10px;
+  font-size:.85rem;
+  opacity:.85;
+}
+
+/* ===============================
+   🪟 업데이트 모달
+   =============================== */
 #updateModal{
   position:fixed;
   inset:0;
@@ -142,6 +187,7 @@ button{cursor:pointer}
   z-index:999;
 }
 #updateModal.hidden{display:none;}
+
 .modal{
   width:400px;
   max-width:90%;
@@ -155,7 +201,9 @@ button{cursor:pointer}
   align-items:center;
 }
 
-/* 모바일 */
+/* ===============================
+   📱 모바일 대응
+   =============================== */
 @media(max-width:900px){
   .container{grid-template-columns:1fr;}
 }
@@ -164,56 +212,75 @@ button{cursor:pointer}
 
 <body>
 
+<!-- 상단 경고 -->
 <div class="notice-bar">
 ⚠ 비공개 정보 포함 · 외부 공유 절대 금지
 </div>
 
+<!-- 헤더 -->
 <header>
   <h1>🤫 Secret Search 🤫</h1>
+  <!-- 다크/라이트 전환 버튼 -->
   <button id="toggleMode">라이트 모드</button>
 </header>
 
 <div class="container">
 
-  <!-- 메인 -->
+  <!-- ===============================
+       🧠 메인 영역
+       =============================== -->
   <div class="card">
+
+    <!-- 검색창 -->
     <div class="search-box">
       <input id="search" placeholder="이름 검색">
       <button id="searchBtn">검색</button>
     </div>
 
+    <!-- 자동완성 -->
     <div id="suggestions"></div>
 
+    <!-- 최근 검색 -->
     <div id="recentWrapper">
       <h4>최근 검색</h4>
       <ul id="recentList"></ul>
     </div>
 
+    <!-- 검색 결과 -->
     <p id="noResult">🔍 검색 결과가 없습니다.</p>
     <h3>🔎 검색 결과</h3>
     <ul id="result"></ul>
 
+    <!-- 범례 -->
     <div id="legend">
       ❤️ 연애 💔 과거 ➡️ 짝사랑 🔁 서로<br>
       🟢 내가 좋아함 🟠 나를 좋아함 🔴 경쟁 ⚪ 관계없음
     </div>
   </div>
 
-  <!-- 서브 -->
+  <!-- ===============================
+       📊 사이드 영역
+       =============================== -->
   <div>
+
+    <!-- 인기순위 -->
     <div class="card">
       <h3>🔥 인기순위 TOP 10</h3>
       <ul id="rank"></ul>
     </div>
 
+    <!-- 관계 그래프 -->
     <div class="card" id="graphCard" style="display:none;margin-top:20px">
       <h3>🧠 관계 그래프</h3>
       <div id="graph" style="display:flex;flex-wrap:wrap;gap:10px;"></div>
     </div>
-  </div>
 
+  </div>
 </div>
 
+<!-- ===============================
+     🪟 업데이트 모달
+     =============================== -->
 <div id="updateModal">
   <div class="modal">
     <div class="modal-header">
@@ -229,13 +296,20 @@ button{cursor:pointer}
 </div>
 
 <script>
+/* ===============================
+   🌗 다크 / 라이트 모드 토글
+   =============================== */
 toggleMode.onclick=()=>{
   document.body.classList.toggle("light");
   toggleMode.textContent=
-    document.body.classList.contains("light")?"다크 모드":"라이트 모드";
+    document.body.classList.contains("light")
+    ? "다크 모드"
+    : "라이트 모드";
 };
-  
-/* 데이터 */
+
+/* ===============================
+   📦 관계 데이터
+   =============================== */
 const relations = [
   {from:"조민준",to:"문효진",type:"breakup"},
   {from:"강명구",to:"황혜빈",type:"dating"},
@@ -291,59 +365,90 @@ const relations = [
   {from:"김민서",to:"이예나",type:"crush"}
 ];
 
-/* 나머지 JS (검색/그래프/인기순위) */
+/* ===============================
+   🔧 DOM 요소 참조
+   =============================== */
 const search=document.getElementById("search");
 const result=document.getElementById("result");
 const recentList=document.getElementById("recentList");
 const suggestions=document.getElementById("suggestions");
 const graphCard=document.getElementById("graphCard");
 const graph=document.getElementById("graph");
+
+/* 전체 인물 이름 목록 */
 const names=[...new Set(relations.flatMap(r=>[r.from,r.to]))];
+
+/* 최근 검색 (로컬스토리지) */
 let recent=JSON.parse(localStorage.getItem("recent")||"[]");
 
+/* ===============================
+   🕒 최근 검색 렌더링
+   =============================== */
 function renderRecent(){
   recentList.innerHTML="";
   recent.forEach(n=>{
     const li=document.createElement("li");
     li.innerHTML=`<span>${n}</span><span>❌</span>`;
-    li.children[0].onclick=()=>{search.value=n;run();};
+
+    /* 클릭 시 다시 검색 */
+    li.children[0].onclick=()=>{
+      search.value=n;
+      run();
+    };
+
+    /* 삭제 버튼 */
     li.children[1].onclick=e=>{
       e.stopPropagation();
       recent=recent.filter(x=>x!==n);
       localStorage.setItem("recent",JSON.stringify(recent));
       renderRecent();
     };
+
     recentList.appendChild(li);
   });
 }
 renderRecent();
 
+/* ===============================
+   ✨ 자동완성 처리
+   =============================== */
 search.oninput=()=>{
   suggestions.innerHTML="";
   const q=search.value.trim();
   if(!q) return;
+
   names.filter(n=>n.includes(q)).forEach(n=>{
     const d=document.createElement("div");
     d.textContent=n;
-    d.onclick=()=>{search.value=n;run();};
+    d.onclick=()=>{
+      search.value=n;
+      run();
+    };
     suggestions.appendChild(d);
   });
 };
 
+/* ===============================
+   🧠 관계 그래프 생성
+   =============================== */
 function renderGraph(center){
   graph.innerHTML="";
   graphCard.style.display="block";
 
   const likes=relations.filter(r=>r.from===center).map(r=>r.to);
   const likedBy=relations.filter(r=>r.to===center).map(r=>r.from);
-  const competitors=relations.filter(r=>likes.includes(r.to)&&r.from!==center).map(r=>r.from);
+  const competitors=relations
+    .filter(r=>likes.includes(r.to)&&r.from!==center)
+    .map(r=>r.from);
 
   names.forEach(p=>{
     if(p===center) return;
+
     let cls="gray";
     if(likes.includes(p)) cls="green";
     else if(likedBy.includes(p)) cls="orange";
     else if(competitors.includes(p)) cls="red";
+
     const d=document.createElement("div");
     d.className=`node ${cls}`;
     d.textContent=p;
@@ -351,6 +456,9 @@ function renderGraph(center){
   });
 }
 
+/* ===============================
+   🔎 검색 실행
+   =============================== */
 function run(){
   const q=search.value.trim();
   result.innerHTML="";
@@ -360,10 +468,12 @@ function run(){
   const found=relations.filter(r=>r.from===q||r.to===q);
   if(!found.length) return;
 
+  /* 최근 검색 저장 */
   recent=[q,...recent.filter(x=>x!==q)].slice(0,10);
   localStorage.setItem("recent",JSON.stringify(recent));
   renderRecent();
 
+  /* 검색 결과 출력 */
   found.forEach(r=>{
     const icon =
       r.type==="dating"?"❤️":
@@ -377,20 +487,31 @@ function run(){
   renderGraph(q);
 }
 
+/* 버튼/엔터 연결 */
 searchBtn.onclick=run;
 search.onkeydown=e=>{if(e.key==="Enter")run();};
 
+/* ===============================
+   🔥 인기순위 계산
+   =============================== */
 const rank=document.getElementById("rank");
 const score={};
-relations.forEach(r=>score[r.to]=(score[r.to]||0)+1);
-rank.innerHTML=Object.entries(score)
-.sort((a,b)=>b[1]-a[1])
-.slice(0,10)
-.map(e=>`<li>${e[0]} (${e[1]})</li>`).join("");
 
-closeUpdate.onclick=()=>updateModal.classList.add("hidden");
+relations.forEach(r=>{
+  score[r.to]=(score[r.to]||0)+1;
+});
+
+rank.innerHTML=Object.entries(score)
+  .sort((a,b)=>b[1]-a[1])
+  .slice(0,10)
+  .map(e=>`<li>${e[0]} (${e[1]})</li>`)
+  .join("");
+
+/* 업데이트 모달 닫기 */
+closeUpdate.onclick=()=>{
+  updateModal.classList.add("hidden");
+};
 </script>
 
 </body>
 </html>
-
